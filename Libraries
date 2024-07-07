@@ -8,3 +8,10 @@ from scipy.stats import pearsonr
 #Uploading the data
 data = pd.read_csv("C:/Users/Administrator/Downloads/Women_s_E-Commerce_Clothing_Reviews_1594_1.csv")
 data.head()
+
+#Data cleaning
+#Checkinh for missing values
+data.isnull().sum()
+data.info
+#Summary statistics
+data.describe().T
