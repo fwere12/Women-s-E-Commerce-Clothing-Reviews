@@ -15,3 +15,9 @@ data.isnull().sum()
 data.info
 #Summary statistics
 data.describe().T
+
+#Dropping the missing values
+data.dropna(subset=['Review.Text', 'Title', 'Rating'], inplace=True)
+
+X_review = data['Review.Text']
+y_review = data['Rating']
