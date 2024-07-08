@@ -25,7 +25,7 @@ data.dropna(subset=['Review.Text', 'Title', 'Rating'], inplace=True)
 X_review = data['Review.Text']
 y_review = data['Rating']
 
-<<<<< Data-Modelling
+
 #Categorizing reviews
 y_review = y_review.apply(lambda x: 'positive' if x > 3 else ('negative' if x < 3 else 'neutral'))
 print(y_review.head())
@@ -40,3 +40,8 @@ X_review_train, X_review_test, y_review_train, y_review_test = train_test_split(
 #Model classification
 model_review = LogisticRegression()
 model_review.fit(X_review_train, y_review_train)
+
+#Model Evaluation
+y_review_pred = model_review.predict(X_review_test)
+print(f'Accuracy for Review.Text: {accuracy_score(y_review_test, y_review_pred)}')
+print(classification_report(y_review_test, y_review_pred))
