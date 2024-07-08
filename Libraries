@@ -9,6 +9,9 @@ from scipy.stats import pearsonr
 data = pd.read_csv("C:/Users/Administrator/Downloads/Women_s_E-Commerce_Clothing_Reviews_1594_1.csv")
 data.head()
 
+#Ensure the 'Rating' column is numeric
+data['Rating'] = pd.to_numeric(data['Rating'], errors='coerce')
+
 #Data cleaning
 #Checkinh for missing values
 data.isnull().sum()
@@ -21,3 +24,14 @@ data.dropna(subset=['Review.Text', 'Title', 'Rating'], inplace=True)
 
 X_review = data['Review.Text']
 y_review = data['Rating']
+
+#Categorizing reviews
+y_review = y_review.apply(lambda x: 'positive' if x > 3 else ('negative' if x < 3 else 'neutral'))
+print(y_review.head())
+
+#Feature extraction
+vectorizer_review = TfidfVectorizer(stop_words='english', max_features=5000)
+X_review_tfidf = vectorizer_review.fit_transform(X_review)
+
+#Train test split
+X_review_train, X_review_test, y_review_train, y_review_test = train_test_split(X_review_tfidf, y_review, test_size=0.2, random_state=42)
