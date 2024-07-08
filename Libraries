@@ -9,6 +9,9 @@ from scipy.stats import pearsonr
 data = pd.read_csv("C:/Users/Administrator/Downloads/Women_s_E-Commerce_Clothing_Reviews_1594_1.csv")
 data.head()
 
+#Ensuring rating column is numeric
+data['Rating'] = pd.to_numeric(data['Rating'], errors='coerce')
+
 #Data cleaning
 #Checkinh for missing values
 data.isnull().sum()
@@ -21,3 +24,8 @@ data.dropna(subset=['Review.Text', 'Title', 'Rating'], inplace=True)
 
 X_review = data['Review.Text']
 y_review = data['Rating']
+
+#Apply the lambda function to categorize the reviews
+y_review = y_review.apply(lambda x: 'positive' if x > 3 else ('negative' if x < 3 else 'neutral'))
+
+print(y_review.head())
