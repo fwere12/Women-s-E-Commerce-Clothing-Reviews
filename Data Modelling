@@ -1,0 +1,47 @@
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score, classification_report
+from scipy.stats import pearsonr
+
+#Uploading the data
+data = pd.read_csv("C:/Users/Administrator/Downloads/Women_s_E-Commerce_Clothing_Reviews_1594_1.csv")
+data.head()
+
+#Ensure the 'Rating' column is numeric
+data['Rating'] = pd.to_numeric(data['Rating'], errors='coerce')
+
+#Data cleaning
+#Checkinh for missing values
+data.isnull().sum()
+data.info
+#Summary statistics
+data.describe().T
+
+#Dropping the missing values
+data.dropna(subset=['Review.Text', 'Title', 'Rating'], inplace=True)
+
+X_review = data['Review.Text']
+y_review = data['Rating']
+
+
+#Categorizing reviews
+y_review = y_review.apply(lambda x: 'positive' if x > 3 else ('negative' if x < 3 else 'neutral'))
+print(y_review.head())
+
+#Feature extraction
+vectorizer_review = TfidfVectorizer(stop_words='english', max_features=5000)
+X_review_tfidf = vectorizer_review.fit_transform(X_review)
+
+#Train test split
+X_review_train, X_review_test, y_review_train, y_review_test = train_test_split(X_review_tfidf, y_review, test_size=0.2, random_state=42)
+
+#Model classification
+model_review = LogisticRegression()
+model_review.fit(X_review_train, y_review_train)
+
+#Model Evaluation
+y_review_pred = model_review.predict(X_review_test)
+print(f'Accuracy for Review.Text: {accuracy_score(y_review_test, y_review_pred)}')
+print(classification_report(y_review_test, y_review_pred))
