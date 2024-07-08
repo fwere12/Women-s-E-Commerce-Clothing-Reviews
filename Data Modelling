@@ -45,3 +45,6 @@ model_review.fit(X_review_train, y_review_train)
 y_review_pred = model_review.predict(X_review_test)
 print(f'Accuracy for Review.Text: {accuracy_score(y_review_test, y_review_pred)}')
 print(classification_report(y_review_test, y_review_pred))
+
+#Added a sentiment prediction column to the original DataFrame
+data['Review.Sentiment'] = data['Review.Text'].apply(lambda text: model_review.predict(vectorizer_review.transform([text]))[0])
