@@ -25,6 +25,7 @@ data.dropna(subset=['Review.Text', 'Title', 'Rating'], inplace=True)
 X_review = data['Review.Text']
 y_review = data['Rating']
 
+<<<<< Data-Modelling
 #Categorizing reviews
 y_review = y_review.apply(lambda x: 'positive' if x > 3 else ('negative' if x < 3 else 'neutral'))
 print(y_review.head())
