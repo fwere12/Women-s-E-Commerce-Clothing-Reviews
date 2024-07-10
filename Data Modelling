@@ -54,5 +54,8 @@ X_title = data['Title']
 y_title = data['Rating']
 
 #Categorize ratings into 3 classes: negative (1-2), neutral (3), positive (4-5)
-
 y_title = y_title.apply(lambda x: 'positive' if x > 3 else ('negative' if x < 3 else 'neutral'))
+
+#Feature extraction using TF-IDF for 'Title'
+vectorizer_title = TfidfVectorizer(stop_words='english', max_features=5000)
+X_title_tfidf = vectorizer_title.fit_transform(X_title)
