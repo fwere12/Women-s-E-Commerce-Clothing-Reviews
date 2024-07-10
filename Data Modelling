@@ -48,3 +48,11 @@ print(classification_report(y_review_test, y_review_pred))
 
 #Added a sentiment prediction column to the original DataFrame
 data['Review.Sentiment'] = data['Review.Text'].apply(lambda text: model_review.predict(vectorizer_review.transform([text]))[0])
+
+#Text precessing for "Title"
+X_title = data['Title']
+y_title = data['Rating']
+
+#Categorize ratings into 3 classes: negative (1-2), neutral (3), positive (4-5)
+
+y_title = y_title.apply(lambda x: 'positive' if x > 3 else ('negative' if x < 3 else 'neutral'))
