@@ -65,3 +65,8 @@ X_title_train, X_title_test, y_title_train, y_title_test = train_test_split(X_ti
 #Training a classification model for 'Title'
 model_title = LogisticRegression()
 model_title.fit(X_title_train, y_title_train)
+
+#Model evaluation for 'Title'
+y_title_pred = model_title.predict(X_title_test)
+print(f'Accuracy for Title: {accuracy_score(y_title_test, y_title_pred)}')
+print(classification_report(y_title_test, y_title_pred))
