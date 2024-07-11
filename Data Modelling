@@ -78,3 +78,6 @@ data['Title.Sentiment'] = data['Title'].apply(lambda text: model_title.predict(v
 sentiment_mapping = {'negative': -1, 'neutral': 0, 'positive': 1}
 data['Review.Sentiment.Numeric'] = data['Review.Sentiment'].map(sentiment_mapping)
 data['Title.Sentiment.Numeric'] = data['Title.Sentiment'].map(sentiment_mapping)
+
+#Removes rows with NaN values ​​in columns 'Review.Sentiment.Numeric' and 'Title.Sentiment.Numeric'
+data.dropna(subset=['Review.Sentiment.Numeric', 'Title.Sentiment.Numeric'], inplace=True)
