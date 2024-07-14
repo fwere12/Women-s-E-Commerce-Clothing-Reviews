@@ -81,3 +81,7 @@ data['Title.Sentiment.Numeric'] = data['Title.Sentiment'].map(sentiment_mapping)
 
 #Removes rows with NaN values ​​in columns 'Review.Sentiment.Numeric' and 'Title.Sentiment.Numeric'
 data.dropna(subset=['Review.Sentiment.Numeric', 'Title.Sentiment.Numeric'], inplace=True)
+
+#Calculating the Pearson correlation between 'Review.Text' and 'Title' sentiment
+correlation, _ = pearsonr(data['Review.Sentiment.Numeric'], data['Title.Sentiment.Numeric'])
+print(f'Korelasi antara sentimen Title dan Review.Text: {correlation}')
