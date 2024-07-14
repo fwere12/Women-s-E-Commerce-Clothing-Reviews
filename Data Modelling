@@ -84,4 +84,9 @@ data.dropna(subset=['Review.Sentiment.Numeric', 'Title.Sentiment.Numeric'], inpl
 
 #Calculating the Pearson correlation between 'Review.Text' and 'Title' sentiment
 correlation, _ = pearsonr(data['Review.Sentiment.Numeric'], data['Title.Sentiment.Numeric'])
-print(f'Korelasi antara sentimen Title dan Review.Text: {correlation}')
+print(f'Correlation between Title sentiment and Review.Text: {correlation}')
+
+#Save the DataFrame with the prediction column to a new file
+data.to_csv('Women_s_E-Commerce_Clothing_Reviews_with_Sentiment.csv', sep=';', index=False)
+
+print("The sentiment prediction results have been saved to 'Women_s_E-Commerce_Clothing_Reviews_with_Sentiment.csv'.")
